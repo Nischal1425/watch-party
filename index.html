@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#16121d">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Open this when you have a minute">
+<meta property="og:description" content="Konni matalu. Chivarilo oka question.">
+<meta name="twitter:card" content="summary">
+<title>Ask Me On The Call</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400;1,6..96,500&family=Karla:wght@300;400;600&family=Caveat:wght@500&display=swap">
+
+<style>
+  :root {
+    --ink:      #16121d;
+    --raised:   #201829;
+    --lamp:     #ffb26b;
+    --rose:     #e8698c;
+    --text:     #f3ece4;
+    --muted:    #9b8ea6;
+    --line:     #322740;
+    --measure:  34rem;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: Karla, "Segoe UI", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* the lamp: a warm pool of light the page sits inside */
+  .lamp {
+    position: fixed;
+    inset: -20vh -10vw auto;
+    height: 90vh;
+    background: radial-gradient(50% 55% at 50% 40%, rgba(255,178,107,.20), rgba(255,178,107,.06) 45%, transparent 72%);
+    pointer-events: none;
+    animation: breathe 11s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { opacity: .85; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.06); }
+  }
+
+  main {
+    position: relative;
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: clamp(4rem, 14vh, 8rem) 1.5rem 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+
+  .eyebrow {
+    font-size: .75rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--lamp);
+    opacity: .85;
+    margin: 0;
+  }
+
+  p { margin: 0; }
+  .lede { font-size: 1.1875rem; line-height: 1.7; }
+  .muted { color: var(--muted); }
+
+  /* the letter — a hairline rail holds the whole telling, start to now */
+  .notes {
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+    border-left: 1px solid var(--line);
+    padding-left: 1.5rem;
+  }
+  .notes .turn { color: var(--lamp); }
+  .notes .close {
+    font-family: "Bodoni Moda", Didot, Georgia, serif;
+    font-style: italic;
+    font-size: 1.375rem;
+    line-height: 1.45;
+    color: var(--text);
+  }
+
+  .rule {
+    height: 1px;
+    background: linear-gradient(90deg, var(--line), transparent);
+    border: 0;
+    margin: .5rem 0;
+  }
+
+  .ask {
+    font-family: "Bodoni Moda", Didot, Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2.4rem, 9vw, 3.9rem);
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    text-wrap: balance;
+    margin: 1rem 0 .25rem;
+    color: var(--text);
+  }
+  .ask em { font-style: italic; color: var(--rose); }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    min-height: 4rem;
+  }
+
+  button {
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 2rem;
+    padding: .8rem 2rem;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  button:focus-visible {
+    outline: 2px solid var(--lamp);
+    outline-offset: 3px;
+  }
+
+  #yes {
+    background: var(--rose);
+    color: #24101a;
+    border: 0;
+    box-shadow: 0 0 0 0 rgba(232,105,140,.5);
+  }
+  #yes:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -8px rgba(232,105,140,.6); }
+
+  #no {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    position: relative;
+  }
+  #no:hover { color: var(--text); }
+
+  /* the reveal */
+  #reply {
+    display: none;
+    flex-direction: column;
+    gap: 1.25rem;
+    background: var(--raised);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    animation: rise .6s cubic-bezier(.2,.8,.2,1) both;
+  }
+  #reply.open { display: flex; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .meet {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    align-self: flex-start;
+    background: var(--lamp);
+    color: #2a1a09;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 2rem;
+    padding: .75rem 1.6rem;
+    transition: transform .18s ease;
+  }
+  .meet:hover { transform: translateY(-2px); }
+
+  .sign {
+    font-family: Caveat, cursive;
+    font-size: 1.6rem;
+    color: var(--lamp);
+    line-height: 1;
+  }
+
+  /* falling hearts on yes */
+  .heart {
+    position: fixed;
+    top: -3rem;
+    font-size: 1.4rem;
+    pointer-events: none;
+    animation: fall linear forwards;
+    z-index: 5;
+  }
+  @keyframes fall {
+    to { transform: translateY(112vh) rotate(220deg); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="lamp"></div>
+
+<main>
+  <p class="eyebrow">Konni matalu — finally</p>
+
+  <p class="lede">Ninnu chusi Sri Prakash lo unnapude padipoya. Kani nenu nee kanna oka class chinna, so mostly nuvvu "no" antav ani nenu back ayipoya.</p>
+
+  <div class="notes">
+    <p>Tharavatha examination time lo, nuvvu naa pakkana kurchuni exam rase dhanavi. Nenu ninnu chusi murisipoye vaadini.</p>
+
+    <p>Konni years tharavatha nuvvu Insta lo kanabadavu. Try chesa neetho matladadaniki — kani appatlo nuvvu inter age, naa paina anta feeling ledu neeku.</p>
+
+    <p>Inko okati: ninnu follow cheyadaniki eh account ani kuda telidhu. Chala duplicate accounts undevi — okati emo "katiekullen" anta, inkoti "cutie"… edho telidhu. Kani try chesa, ninnu follow cheyadaniki.</p>
+
+    <p class="turn">Tharavatha konni years ki nuvvu malli kanabaddavu. Nenu message chesa — and finally nuvvu react chesi reply ichavu. Nee posts chusi nenu kush ayya.</p>
+
+    <p>Appatinundi neetho matladuthunte… adho vere feeling abba.</p>
+
+    <p>Kani idho okati — mana madhyalo unna gap: antha social media, online lo thappa eppudu neetho in person matladaledu, time spend cheyaledu. Neetho live ga video chat cheyadam — adhi naaku eppudu dorakaledu.</p>
+
+    <p class="close">Finally, nuvvu permission isthe — nee pakkana kurchuntanu, or naatho eye contact lo matladatava?</p>
+  </div>
+
+  <p class="muted">Let's start with this question below.</p>
+
+  <hr class="rule">
+
+  <h1 class="ask">So — will you watch <em>Game of Thrones</em> with me?</h1>
+
+  <div class="buttons">
+    <button id="yes">Yes</button>
+    <button id="no">No</button>
+  </div>
+
+  <p class="muted" id="hint" style="font-size:.9rem">One of these buttons works better than the other.</p>
+
+  <div id="reply">
+    <p style="font-size:1.1875rem">Okay. Okay okay okay. Episode one, then.</p>
+    <p class="muted">Tonight, 5:00pm onwards. I'm on the call already — come find me and we'll press play at the same time.</p>
+    <a class="meet" id="meetLink" href="#" target="_blank" rel="noopener">Join me on Google Meet →</a>
+    <p class="muted" id="redirect" style="font-size:.9rem"></p>
+    <p class="sign">— see you in a minute</p>
+  </div>
+</main>
+
+<script>
+  const no = document.getElementById('no');
+  const yes = document.getElementById('yes');
+  const hint = document.getElementById('hint');
+  let dodges = 0;
+
+  const labels = ["No", "Try harder", "Closer…", "Nope", "Faster!", "Not a chance", "You'll never catch me", "Just press Yes"];
+  const taunts = ["Hm. Try the other one.", "It moves. Sorry.", "Genuinely unclickable.", "You are very determined.", "This could go on all night."];
+
+  function move() {
+    const pad = 24;
+    const w = no.offsetWidth, h = no.offsetHeight;
+    no.style.position = 'fixed';
+    no.style.left = pad + Math.random() * (window.innerWidth  - w - pad * 2) + 'px';
+    no.style.top  = pad + Math.random() * (window.innerHeight - h - pad * 2) + 'px';
+  }
+
+  function dodge() {
+    dodges++;
+    move();
+    no.textContent = labels[Math.min(dodges, labels.length - 1)];
+    hint.textContent = taunts[Math.min(dodges - 1, taunts.length - 1)];
+    if (dodges > 3) yes.style.transform = `scale(${Math.min(1 + dodges * 0.06, 1.5)})`;
+    // once it starts running, it keeps drifting on its own
+    if (dodges === 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      no.style.transition = 'left .5s ease, top .5s ease, transform .18s ease';
+      wander = setInterval(move, 1800);
+    }
+  }
+  let wander = null;
+
+  no.addEventListener('mouseenter', dodge);
+  no.addEventListener('touchstart', e => { e.preventDefault(); dodge(); }, { passive: false });
+  no.addEventListener('click', e => { e.preventDefault(); dodge(); });
+
+  yes.addEventListener('click', () => {
+    document.getElementById('reply').classList.add('open');
+    clearInterval(wander);
+    no.style.display = 'none';
+    hint.style.display = 'none';
+    yes.disabled = true;
+    yes.textContent = 'Yes ♥';
+    document.getElementById('reply').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    for (let i = 0; i < 28; i++) {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = ['♥', '♡'][i % 2];
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.color = i % 3 ? '#e8698c' : '#ffb26b';
+      h.style.animationDuration = (3 + Math.random() * 2.5) + 's';
+      h.style.animationDelay = (Math.random() * 1.5) + 's';
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 7000);
+    }
+  });
+
+  const MEET_URL = "https://meet.google.com/fcm-qapu-ugh";
+  const meet = document.getElementById('meetLink');
+  const redirect = document.getElementById('redirect');
+
+  if (!MEET_URL) {
+    meet.removeAttribute('href');
+    meet.removeAttribute('target');
+    meet.textContent = "I'll send you the Meet link →";
+  } else {
+    meet.href = MEET_URL;
+    yes.addEventListener('click', () => {
+      let left = 5;
+      redirect.textContent = `Opening the call in ${left}…`;
+      const t = setInterval(() => {
+        left--;
+        redirect.textContent = left ? `Opening the call in ${left}…` : 'Opening the call…';
+        if (left) return;
+        clearInterval(t);
+        // sandboxed page can't top-navigate; open a tab, fall back to the button
+        const w = window.open(MEET_URL, '_blank', 'noopener');
+        redirect.textContent = w ? 'Opened in a new tab.' : 'Tap the button above to join →';
+      }, 1000);
+    });
+  }
+</script>
+
+</body>
+</html>
